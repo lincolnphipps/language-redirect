@@ -26,6 +26,13 @@ function language_redirect_show_settings_page() {
 						<p class="description">Every line should have the format <i>&lt;language&gt;=&lt;redirect location&gt;</i>, e.g. <i>en=/en/</i></p>
 					</td>
 				</tr>
+				<tr valign="top">
+					<th scope="row">Set and use visit cookie</th>
+					<td>   
+						<input id="language_redirect_use_has_visited_cookie" name="language_redirect_use_has_visited_cookie" class="checkbox" type="checkbox" value="1" <?= checked( get_option('language_redirect_use_has_visited_cookie'), 1, false );?>   />
+						<p class="description">Used to stop redirect if user has already visited site</p>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		<?php submit_button(); ?>
