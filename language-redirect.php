@@ -20,6 +20,7 @@ if (is_admin()) {
 function language_redirect_register_settings() {
 	register_setting('language_redirect_group', 'language_redirect_default_redirect_location');
 	register_setting('language_redirect_group', 'language_redirect_redirect_mapping');
+	register_setting('language_redirect_group', 'language_redirect_use_has_visited_cookie');
 }
 
 function language_redirect_add_config_page() {
@@ -29,6 +30,14 @@ function language_redirect_add_config_page() {
 function language_redirect_plugins_loaded() {
 	if (language_redirect_is_login()) {
 		return;
+	}
+	if (get_option('language_redirect_use_has_visited_cookie') == "1") {
+		if (isset($_COOKIE['languageredirect_hasvisited'])) {
+			return;
+		}
+		if (!isset($_COOKIE['languageredirect_hasvisted'])) {
+			setcookie('languageredirect_hasvisited', 1, time()+2419200, COOKIEPATH, COOKIE_DOMAIN, false);
+		}
 	}
 	$language = explode(',',$_SERVER['HTTP_ACCEPT_LANGUAGE']);
 	$language = strtolower(substr(chop($language[0]), 0, 2));
